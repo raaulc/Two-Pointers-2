@@ -3,13 +3,14 @@ from typing import List
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         if len(nums) <= 2:
-            return len(nums)  # No need to modify if size is already ≤ 2
-
-        insert_pos = 2  # Allow first two elements by default
-
-        for i in range(2, len(nums)):
-            if nums[i] != nums[insert_pos - 2]:  # Ensure at most 2 occurrences
-                nums[insert_pos] = nums[i]
-                insert_pos += 1
+            return len(nums)  
         
-        return insert_pos  # New length of modified nums
+        slow = 2  
+        # Slow pointer: Where the next valid number should go
+        # Fast pointer: Iterates over the array
+        for fast in range(2, len(nums)):
+            if nums[fast] != nums[slow - 2]: 
+                nums[slow] = nums[fast] 
+                slow += 1 
+        
+        return slow 
